@@ -97,6 +97,57 @@
   </div>
 
 <script>
+
+//const items = document.querySelectorAll('.item'); //Selector all in all the elements of the list
+const items = document.querySelectorAll('input[type=checkbox]');
+
+console.log(items);
+
+items.forEach(item =>{ //Event listener for each checkbox
+  item.addEventListener('click', checkTheBoxes);
+});
+
+const itemsContent = []; //Support array to search the contents matching the nodelist indexes
+items.forEach(item => {
+  //itemsContent.push(item.innerText);
+  itemsContent.push(item.nextElementSibling.childNodes[0].textContent);
+});
+
+console.log(itemsContent);
+
+const itemReferences = []; //Reference of the indexes
+
+function checkTheBoxes(e) {
+
+  //It references the last checkbox marked, regardless shift is pressed or not
+
+  if (itemReferences.length === 2) { //We discard the previous first index value if we have one
+    itemReferences.shift();
+  };
+  itemReferences.push(e.target.nextSibling.nextSibling.textContent); //Add the new reference index
+
+  if (e.shiftKey) { //If shift is pressed then check the boxes between the values
+    if (itemReferences.length === 2) {
+      let firstIndex = itemsContent.indexOf(itemReferences[0]);
+      let secondIndex = itemsContent.indexOf(itemReferences[1]);
+    
+      if (firstIndex === secondIndex) return;
+
+      isChecked = items[firstIndex].childNodes[1].checked;
+
+      for (firstIndex < secondIndex ? i = firstIndex + 1 : i = firstIndex - 1; i != secondIndex; i < secondIndex ? i++ : i--) {
+        items[i].childNodes[1].checked = isChecked;
+      };
+    };
+  };
+};
+
+document.addEventListener("keyup", (e) => {
+  if (!e.shiftKey && itemReferences.length == 2) {
+    itemReferences.shift();
+  }
+});
+
 </script>
 </body>
 </html>
