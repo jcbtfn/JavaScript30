@@ -133,10 +133,10 @@ function checkTheBoxes(e) {
     
       if (firstIndex === secondIndex) return;
 
-      isChecked = items[firstIndex].childNodes[1].checked;
+      isChecked = items[firstIndex].checked;
 
       for (firstIndex < secondIndex ? i = firstIndex + 1 : i = firstIndex - 1; i != secondIndex; i < secondIndex ? i++ : i--) {
-        items[i].childNodes[1].checked = isChecked;
+        items[i].checked = isChecked;
       };
     };
   };
