@@ -47,8 +47,40 @@
   <ul id="bands"></ul>
 
 <script>
-const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
+  const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
+  // bandsSorted = bands.sort();
 
+  const articles = ["a ", "an ", "the "];
+
+  // bands.forEach (band => {
+  //   console.log(band, articles.some((article) => band.toLowerCase().startsWith(article)));
+  // });
+
+  function checkAndSliceString(stringToCheck){
+    articles.some((article) => {
+      if (stringToCheck.toLowerCase().startsWith(article)) {
+        stringToCheck = stringToCheck.slice(article.length);
+      };
+    });
+    return stringToCheck;
+  };
+
+  const bandsSorted = bands.slice().sort((a, b) => (checkAndSliceString(a) < checkAndSliceString(b)) ? - 1 : 1);
+
+  console.log("BANDS");
+  console.log(bands);
+  console.log("BANDS SORTED");
+  console.log(bandsSorted);
+
+  bandsUL = document.querySelector('#bands');
+
+  const html = bandsSorted.map(band => {
+    return `
+      <li>${band}</li>
+    `;
+  }).join('');
+
+  bandsUL.innerHTML = html;
 
 </script>
 
