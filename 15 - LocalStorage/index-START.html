@@ -26,8 +26,8 @@
     </form>
     <div class="add-items">
       <button type="button" id="clearAll">Clear all</button>
-      <button type="button" data-action="checkAll" class="add-items-b">Check all</button>
-      <button type="button" data-action="uncheckAll" class="add-items-b">Uncheck all</button>
+      <button type="button" id="checkAll">Check all</button>
+      <button type="button" id="uncheckAll">Uncheck all</button>
     </div>
   </div>
 
@@ -71,16 +71,29 @@
 
   const clearAllButton = document.querySelector('#clearAll');
 
-  function deleteAllList(platesList) {
-    console.log("entro");
-    platesList.innerHTML = "<li>Loading Tapas... LOLAILO</li>";
+  function deleteAllList() {
+    itemsList.innerHTML = '<li>All cleared. Start adding Tapas...</li>';
     items.length = 0;
     localStorage.clear();
   };
   
+  const checkAllListButton = document.querySelector('#checkAll');
+
+  function toggleAllList(checkValue) {
+    items.forEach (item => {
+      item.done = checkValue;
+    });
+    localStorage.setItem('items', JSON.stringify(items));
+    populateList(items, itemsList);
+  };
+
+  const uncheckAllListButton = document.querySelector('#uncheckAll');
+
   addItems.addEventListener('submit', addItem);
   itemsList.addEventListener('click', toggleDone);
   clearAllButton.addEventListener('click', deleteAllList);
+  checkAllListButton.addEventListener('click', function(){toggleAllList(true)});
+  uncheckAllListButton.addEventListener('click', function(){toggleAllList(false)});
 
   populateList(items, itemsList);
 
