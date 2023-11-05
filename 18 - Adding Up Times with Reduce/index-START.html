@@ -194,32 +194,23 @@
   //   })
   //   .reduce((total, videoSeconds) => total + videoSeconds);
 
-  // let secondsLeft = seconds;
-
-  // const hours = Math.floor(secondsLeft / 3600);
-  // secondsLeft = secondsLeft % 3600;
-
-  // const mins = Math.floor(secondsLeft / 60);
-  // secondsLeft = secondsLeft % 60;
-
-  // console.log(hours, mins, secondsLeft);
-
-  // console.log(timeNodes);
-
   const seconds = timeNodes
-    .reduce((total) => {
-      // console.log(total);
-      // console.log(videoSeconds)
-      // console.log(videoSeconds.dataset.time.split(':'));
-      // console.log("total: " + total);
+    .reduce((total, videoSeconds) => {
       const [mins, secs] = videoSeconds.dataset.time.split(':').map(parseFloat);
-      console.log(mins, secs);
       const totalSecs = secs + (mins * 60);
-      console.log(totalSecs);
-      console.log(total.dataset.time)
-      console.log(total + totalSecs);
-      // return total + secs + (mins * 60);
-    })
+      return total + secs + (mins * 60);
+    }, 0);
+
+
+  let secondsLeft = seconds;
+
+  const hours = Math.floor(secondsLeft / 3600);
+  secondsLeft = secondsLeft % 3600;
+
+  const mins = Math.floor(secondsLeft / 60);
+  secondsLeft = secondsLeft % 60;
+
+  console.log(`There are ${hours} hours, ${mins} minutes and ${secondsLeft} seconds of video`);
 
 </script>
 </body>
